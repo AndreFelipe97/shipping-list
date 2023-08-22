@@ -9,6 +9,7 @@ import { userProperties } from './properties/user.property';
 import { CreateUser } from './actions/user/create.action';
 import { sequelize } from './db';
 import { authSession } from './services/authenticated/auth.session';
+import { Product } from './models/product.entity';
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ const start = async () => {
           before: async (request: any) => CreateUser(request),
         },
       }),
+      generateResource(Product, {}, {}),
     ],
     dashboard: {
       component: AdminJS.bundle('./frontend/components/dashboard.tsx'),
