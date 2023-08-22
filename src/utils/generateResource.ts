@@ -2,7 +2,7 @@ export function generateResource(
   model: object,
   properties: object,
   actions: object,
-) {
+): object {
   return {
     resource: model,
     options: {
