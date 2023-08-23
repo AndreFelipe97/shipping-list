@@ -42,6 +42,9 @@ const start = async () => {
     dashboard: {
       component: AdminJS.bundle('./frontend/components/dashboard.tsx'),
     },
+    branding: {
+      companyName: 'Gerenciado de lista de compras',
+    },
   });
 
   const { auth, predefinedRouter, sessionOptions } = await authSession();
