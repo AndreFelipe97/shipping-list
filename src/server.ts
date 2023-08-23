@@ -1,4 +1,4 @@
-import AdminJS from 'adminjs';
+import AdminJS, { ActionContext, ActionRequest } from 'adminjs';
 import AdminJSExpress from '@adminjs/express';
 import express from 'express';
 import * as AdminJSSequelize from '@adminjs/sequelize';
@@ -10,6 +10,10 @@ import { CreateUser } from './actions/user/create.action';
 import { sequelize } from './db';
 import { authSession } from './services/authenticated/auth.session';
 import { Product } from './models/product.entity';
+import hbs from 'hbs';
+import EmailService from './services/email/email.service';
+
+const path = require('path');
 
 dotenv.config();
 
@@ -18,7 +22,11 @@ AdminJS.registerAdapter({
   Database: AdminJSSequelize.Database,
 });
 
+const bodyParser = require('body-parser');
+
 const PORT = process.env.PORT_HOST;
+
+const emailService = new EmailService(__dirname);
 
 const start = async () => {
   const app = express();
@@ -31,10 +39,38 @@ const start = async () => {
     resources: [
       generateResource(User, userProperties, {
         new: {
-          before: async (request: any) => CreateUser(request),
+          before: async (request: ActionRequest) => {
+            await emailService.sendEmail(
+              request.payload?.email,
+              'Bem vindo ao meu gerenciador de lista de compras',
+              'password-send',
+              {
+                text: 'seja bem-vindo ao sistema, sua senha é: ',
+                name: request.payload?.name,
+                password: request.payload?.password,
+              },
+            );
+            return CreateUser(request);
+          },
         },
         edit: {
-          before: async (request: any) => CreateUser(request),
+          before: async (request: ActionRequest, context: ActionContext) => {
+            if (request.method && request.method === 'post') {
+              await emailService.sendEmail(
+                request.payload?.email,
+                'Senha alterada',
+                'password-send',
+                {
+                  text: 'sua senha foi alterada e agora é: ',
+                  name: request.payload?.name,
+                  password: request.payload?.password,
+                },
+              );
+              return CreateUser(request);
+            } else {
+              return request;
+            }
+          },
         },
       }),
       generateResource(Product, {}, {}),
@@ -55,7 +91,15 @@ const start = async () => {
     predefinedRouter,
     sessionOptions,
   );
+
+  console.log('Entrou aqui');
+
+  hbs.registerPartials(path.join(__dirname, 'services', 'email', 'views'));
+  app.set('view engine', '.hbs');
+
   app.use(admin.options.rootPath, adminRouter);
+
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   app.listen(PORT, () => {
     console.log(

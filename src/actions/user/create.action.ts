@@ -1,7 +1,8 @@
+import { ActionRequest } from 'adminjs';
 import { hash } from 'bcryptjs';
 
-export async function CreateUser(request: any) {
-  const password = request.payload.password;
+export async function CreateUser(request: ActionRequest) {
+  const password = request.payload?.password;
 
   if (password) {
     request.payload = {
