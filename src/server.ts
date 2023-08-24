@@ -13,6 +13,7 @@ import { Product } from './models/product.entity';
 import hbs from 'hbs';
 import EmailService from './services/email/email.service';
 import { UpdateUser } from './actions/user/update.action';
+import routes from './routes/index.routes';
 
 const path = require('path');
 
@@ -101,6 +102,8 @@ const start = async () => {
   app.use(admin.options.rootPath, adminRouter);
 
   app.use(bodyParser.urlencoded({ extended: true }));
+
+  app.use('/dashboard', routes);
 
   app.listen(PORT, () => {
     console.log(
