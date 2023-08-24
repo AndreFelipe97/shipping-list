@@ -12,6 +12,7 @@ import { authSession } from './services/authenticated/auth.session';
 import { Product } from './models/product.entity';
 import hbs from 'hbs';
 import EmailService from './services/email/email.service';
+import { UpdateUser } from './actions/user/update.action';
 
 const path = require('path');
 
@@ -66,7 +67,7 @@ const start = async () => {
                   password: request.payload?.password,
                 },
               );
-              return CreateUser(request);
+              return UpdateUser(request, context);
             } else {
               return request;
             }
