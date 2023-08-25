@@ -21,7 +21,7 @@ export default class EmailService {
     });
 
     if (rootDir) {
-      const viewPath = resolve(rootDir, 'services', 'email', 'views');
+      const viewPath = resolve(rootDir, 'configs', 'email', 'views');
       console.log(viewPath);
       this.transporter.use(
         'compile',

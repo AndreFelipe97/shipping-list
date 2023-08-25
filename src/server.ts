@@ -8,10 +8,10 @@ import { generateResource } from './utils/generateResource';
 import { userProperties } from './properties/user.property';
 import { CreateUser } from './actions/user/create.action';
 import { sequelize } from './db';
-import { authSession } from './services/authenticated/auth.session';
+import { authSession } from './configs/authenticated/auth.session';
 import { Product } from './models/product.entity';
 import hbs from 'hbs';
-import EmailService from './services/email/email.service';
+import EmailService from './configs/email/email.service';
 import { UpdateUser } from './actions/user/update.action';
 import routes from './routes/index.routes';
 
@@ -96,7 +96,7 @@ const start = async () => {
 
   console.log('Entrou aqui');
 
-  hbs.registerPartials(path.join(__dirname, 'services', 'email', 'views'));
+  hbs.registerPartials(path.join(__dirname, 'configs', 'email', 'views'));
   app.set('view engine', '.hbs');
 
   app.use(admin.options.rootPath, adminRouter);
