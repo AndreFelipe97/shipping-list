@@ -11,7 +11,7 @@ interface IAuthSessionReturn {
   sessionOptions: SessionOptions | undefined;
 }
 
-export async function authSession(): Promise<IAuthSessionReturn> {
+export async function AuthService(): Promise<IAuthSessionReturn> {
   const mysqlStore = require('express-mysql-session')(session);
   const sessionStore = new mysqlStore({
     connectionLimit: 10,

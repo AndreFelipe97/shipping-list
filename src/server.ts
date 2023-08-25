@@ -8,7 +8,7 @@ import { generateResource } from './utils/generateResource';
 import { userProperties } from './properties/user.property';
 import { CreateUser } from './actions/user/create.action';
 import { sequelize } from './db';
-import { authSession } from './configs/authenticated/auth.session';
+import { AuthService } from './services/auth/auth.service';
 import { Product } from './models/product.entity';
 import hbs from 'hbs';
 import EmailService from './configs/email/email.service';
@@ -85,7 +85,7 @@ const start = async () => {
     },
   });
 
-  const { auth, predefinedRouter, sessionOptions } = await authSession();
+  const { auth, predefinedRouter, sessionOptions } = await AuthService();
 
   const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
     admin,
