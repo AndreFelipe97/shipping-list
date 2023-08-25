@@ -1,22 +1,9 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+import ProductController from '../../controllers/products.controller';
 
 const productsRoutes = Router();
+const productsController = new ProductController();
 
-productsRoutes.get('/', async (request: Request, response: Response) => {
-  const labels: Array<any> = [];
-
-  response.json({
-    labels,
-    dataset: [
-      {
-        label: 'Usuários',
-        data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
-        background: '#FF0000',
-        borderColor: '#FF0000',
-        fill: false,
-      },
-    ],
-  });
-});
+productsRoutes.get('/', productsController.list);
 
 export default productsRoutes;

@@ -78,7 +78,7 @@ const start = async () => {
       generateResource(Product, {}, {}),
     ],
     dashboard: {
-      component: AdminJS.bundle('./frontend/components/dashboard.tsx'),
+      component: AdminJS.bundle('./frontend/pages/dashboard/index.tsx'),
     },
     branding: {
       companyName: 'Gerenciado de lista de compras',
