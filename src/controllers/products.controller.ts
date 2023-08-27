@@ -1,19 +1,21 @@
 import { Request, Response } from 'express';
+import { ListProductService } from '../services/products/list.service';
+import GetLast12Months from '../utils/date';
 
 export default class ProductController {
   public async list(request: Request, response: Response): Promise<Response> {
-    const labels = ['JAN', 'FEV', 'MAR', 'MAI', 'ABR', 'JUN'];
-    const dataset = [
-      {
-        label: 'Dataset 1',
-        data: [11125, 4524, 946, 3631, 203, 902],
-        backgroundColor: 'rgba(255, 99,132, 0.5)',
-      },
-    ];
+    const listProductService = new ListProductService();
+    const months = GetLast12Months();
+
+    const { dataProductActivated, dataProductDisabled } =
+      await listProductService.execute(months.monthToBase);
 
     return response.json({
-      labels,
-      dataset: dataset,
+      labels: months.dateFormats,
+      datas: {
+        dataProductActivated,
+        dataProductDisabled,
+      },
     });
   }
 }

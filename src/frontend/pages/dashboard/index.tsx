@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Chart as ChartJS,
   LinearScale,
@@ -6,10 +6,11 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 } from 'chart.js';
-import { Bar } from "react-chartjs-2";
-import faker from 'faker';
+import { Bar } from 'react-chartjs-2';
+import { Container, Title as TitleStyled } from './styles';
+import useSWR from 'swr';
 
 ChartJS.register(
   CategoryScale,
@@ -17,10 +18,18 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const fetcher = (...args: any[]) => fetch(...args).then(res => res.json());
+
 export default function Dashboard() {
+  const { data: dataProducts } = useSWR(
+    'http://localhost:3333/dashboard/products',
+    fetcher,
+  );
+
   const options = {
     responsive: true,
     plugins: {
@@ -29,30 +38,30 @@ export default function Dashboard() {
       },
       title: {
         display: true,
-        text: 'Chart.js Bar Chart',
+        text: 'Produtos por mês',
       },
     },
   };
 
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-  const data = {
-    labels,
+  const dataset = {
+    labels: dataProducts?.labels,
     datasets: [
       {
-        label: 'Dataset 1',
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        label: 'Produtos ativos',
+        data: dataProducts?.datas.dataProductActivated,
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
-        label: 'Dataset 2',
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        label: 'Produtos desativas',
+        data: dataProducts?.datas.dataProductDisabled,
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
     ],
   };
 
   return (
-    <Bar options={options} data={data} />
+    <Container>
+      <Bar options={options} data={dataset} />
+    </Container>
   );
 }
