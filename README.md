@@ -1,30 +1,29 @@
-#Shopping list documentation
+<h1>Shopping list documentation</h1>
 ---
 
-###Initial setting
+<h3>Initial setting</h3>
 
-#####1. Env
+<h5>1. Env</h5>
 
-It is necessary to make a copy of the .env.example file, rename the file to .env and fill it with your data.
+<p>It is necessary to make a copy of the .env.example file, rename the file to .env and fill it with your data.</p>
 
-######File
+<h6>File</h6>
 
 ![Alt text](./docs/images/envExemplo.png)
 
-######Fields to be filled
+<h6>Fields to be filled</h6>
 
 ![Alt text](./docs/images/fields.png)
 
-#####2. Commands
+<h5>2. Commands</h5>
 
-1º yarn install
+<ol>
+  <li><mark>yarn install</mark></li>
+  <li>yarn sequelize db:migrate</li>
+  <li>yarn sequelize db:seed:all</li>
+  <li>yarn dev</li>
+</ol>
 
-2º yarn sequelize db:migrate
+<h5>3. Entity-relationship model</h5>
 
-3º yarn sequelize db:seed:all
-
-4º yarn dev
-
-#####3. Entity-relationship model
-
-#####4. Project images
+<h5>4. Project images</h5>
