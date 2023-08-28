@@ -1,5 +1,4 @@
-<h1>Shopping list documentation</h1>
----
+## <h1>Shopping list documentation</h1>
 
 <h3>Initial setting</h3>
 
@@ -18,7 +17,7 @@
 <h5>2. Commands</h5>
 
 <ol>
-  <li><mark>yarn install</mark></li>
+  <li>yarn install</li>
   <li>yarn sequelize db:migrate</li>
   <li>yarn sequelize db:seed:all</li>
   <li>yarn dev</li>
@@ -26,4 +25,18 @@
 
 <h5>3. Entity-relationship model</h5>
 
+![Alt text](./docs/images/shoppingList.png)
+
 <h5>4. Project images</h5>
+
+<h6>Users</h6>
+
+![Alt text](./docs/images/users.gif)
+
+<h6>Products</h6>
+
+![Alt text](./docs/images/products.gif)
+
+<h6>Graph</h6>
+
+![Alt text](./docs/images/graph.png)
