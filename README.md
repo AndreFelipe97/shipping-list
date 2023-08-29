@@ -23,6 +23,10 @@
   <li>yarn dev</li>
 </ol>
 
+<h4>Access data</h4>
+<p>email: example@example.com</p>
+<p>password: 123456</p>
+
 <h5>3. Entity-relationship model</h5>
 
 ![Alt text](./docs/images/shoppingList.png)
